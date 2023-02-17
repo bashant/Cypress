@@ -1,0 +1,323 @@
+{
+	"info": {
+		"_postman_id": "42acd229-fe79-4cc0-9b7f-58f652720d30",
+		"name": "ArticleAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25810902"
+	},
+	"item": [
+		{
+			"name": "GetArticle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is JSON\", function () {\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Response has articles\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.articles).to.not.be.empty;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realworld.io/api/articles",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realworld",
+						"io"
+					],
+					"path": [
+						"api",
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RegNewUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"username\": \"Shyam\",\r\n    \"email\": \"ram.charan@gmail.com\",\r\n    \"password\": \"testpassword\"\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realworld.io/api/users",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realworld",
+						"io"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is JSON\", function () {\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has a token\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.user.token).to.not.be.empty;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"user\": {\r\n    \"email\": \"basanta.roy@gmail.com\",\r\n    \"password\": \"testpassword\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realworld.io/api/users/login",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realworld",
+						"io"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMostRecentArticle",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.realworld.io/api/articles",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realworld",
+						"io"
+					],
+					"path": [
+						"api",
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateArticle",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"article\": {\r\n        \"title\": \"World\",\r\n        \"description\": \"API test for Deleteing an World\",\r\n        \"body\": \"I am testing new API test for Deleteing an article let's give a try is it working or not?\",\r\n        \"tagList\": [\"test\", \"api\"]\r\n    }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "https://api.realworld.io/api/articles",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realworld",
+						"io"
+					],
+					"path": [
+						"api",
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateArticle",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"article\": {\r\n        \"title\": \"World\",\r\n        \"description\": \"This is a updated article for city called Biratnagar.\",\r\n        \"body\": \"Today I am Updating my existing article through using postman hope it goes fine\",\r\n        \"tagList\": [\"test\", \"api\"]\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "https://api.realworld.io/api/articles/World-139410",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realworld",
+						"io"
+					],
+					"path": [
+						"api",
+						"articles",
+						"World-139410"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteArticle",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.realworld.io/api/articles/World-139410",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realworld",
+						"io"
+					],
+					"path": [
+						"api",
+						"articles",
+						"World-139410"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
